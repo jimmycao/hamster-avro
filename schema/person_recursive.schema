@@ -1,0 +1,16 @@
+{"name": "recursive",
+ "type": "record",
+ "fields": [
+ 			{"name": "height", "type": "long"},
+            {"name": "weight", "type": "long"},
+            {"name": "name", "type": "string"},
+            {"name": "corp", "type": {"type": "record",
+             		  				  "name": "corporation",
+             		                  "fields": [
+             		  	                  {"name": "stock", "type": "string"},
+             		  	                  {"name": "name", "type": "string"}
+             		  	                 ]
+             		                  }
+            }
+           ]
+}
