@@ -1,12 +1,10 @@
 #include "common.h"
 #include "constants.h"
-#include "register_request.h"
-
 
 extern void build_person(char *name, long weight, long height, avro_slice_t *slice)
 {
-	char filename[128];
-	char buf[4096];
+	char filename[FILE_NAME_LEN];
+	char buf[BUFFER_SIZE];
 	long len = 0;
 	avro_schema_t schema;
 	avro_value_iface_t *iface;
@@ -77,7 +75,7 @@ int avro_value_get_fixed(const avro_value_t *value,
 */
 extern void print_person(avro_slice_t *slice)
 {
-	char filename[128];
+	char filename[FILE_NAME_LEN];
 	avro_schema_t schema;
 	avro_value_iface_t *iface;
 	avro_value_t record;

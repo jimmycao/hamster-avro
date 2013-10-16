@@ -1,8 +1,9 @@
 #include "common.h"
 #include "constants.h"
+#include "allocate.h"
 
 
-extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_slice_t *wrapper_slice)
+extern void build_allocate_request(int resource_count, avro_slice_t *slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -10,22 +11,21 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_
 	avro_schema_t schema;
 	avro_value_iface_t *iface;
 	avro_value_t record;
-	avro_value_t request_value;
-	avro_value_t msg_type_value;
+	avro_value_t resource_count_value;
 	size_t index;
 	avro_writer_t writer;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "HamsterHnpRequestRecordAvro.avsc");
+	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
 	avro_generic_value_new(iface, &record);
 
-	avro_value_get_by_name(&record, "request", &request_value, &index);
-	avro_value_set_bytes(&request_value, inner_slice->buffer, inner_slice->len);
-	avro_value_get_by_name(&record, "msg_type_value", &msg_type_value, &index);
-	avro_value_set_enum(&msg_type_value, type);
+	avro_value_get_by_name(&record, "resource_count", &resource_count_value, &index);
+	avro_value_set_int(&resource_count_value, resource_count);
 
+
+	/* create a writer with memory buffer */
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */
 	if (avro_value_write(writer, &record)) {
@@ -41,8 +41,7 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	wrapper_slice->buffer = malloc(len);
-	wrapper_slice->len = len;
-	memcpy(wrapper_slice->buffer, buf, len);
+	slice->buffer = malloc(len);
+	slice->len = len;
+	memcpy(slice->buffer, buf, len);
 }
-

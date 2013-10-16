@@ -8,6 +8,7 @@ headers = \
 	constants.h \
 	register.h \
 	hnp_request_wrapper.h \
+	allocate.h \
 	person.h
 	
 libhamster_avro_la_SOURCES = = \
@@ -15,4 +16,5 @@ libhamster_avro_la_SOURCES = = \
 	common.c \
 	hnp_request_wrapper.c \
 	register.c \
+	allocate.c \
 	person.c 
