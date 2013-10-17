@@ -37,3 +37,5 @@ src/.deps/
 test/.deps/
 test/.libs/
 test/person_test
+test/allocate_response_test
+test/allocate_request_test

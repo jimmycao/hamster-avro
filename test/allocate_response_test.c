@@ -92,6 +92,8 @@ static void build_allocate_response(node_resource_t *node_resource_array, int ar
 	memcpy((*slice)->buffer, buf, len);
 }
 
+//extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_resource_array, int *array_size)
+
 int main()
 {
 	avro_slice_t *slice;
@@ -99,7 +101,10 @@ int main()
 	node_resource_t node_resource_array[5] = {"node1", 1, "node2", 2, "node3", 3, "node4", 4, "node5", 5};
 	int array_size = 5;
 	build_allocate_response(node_resource_array, array_size, &slice);
-
+//============================
+	node_resource_t *node_resource_array_result;
+	int array_size_result = 0;
+	parse_allocate_response(slice, &node_resource_array_result, &array_size_result);
 
 	free_slice(slice);
 	return 0;
