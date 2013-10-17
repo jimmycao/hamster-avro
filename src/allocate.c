@@ -46,28 +46,6 @@ extern void build_allocate_request(int resource_count, avro_slice_t **slice)
 	memcpy((*slice)->buffer, buf, len);
 }
 
-/*
-{
-	"type": "record",
-	"name": "AllocateResponse",
-	"fields": [
-		{"name": "node_resources",  "type": {
-												"type": "array",
-												"items": {
-															"type": "record",
-															"name": "NodeResource",
-															"fields": [
-															           	{"name": "host_name", "type": "string"},
-																	   	{"name": "slot", "type": "int"}
-														              ]
-
-														 }
-
-											}
-		}
-	]
-}
- */
 extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_resource_array, int *array_size)
 {
 	char filename[FILE_NAME_LEN];
@@ -99,52 +77,36 @@ extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_
 	if (0 == *array_size) {
 		*node_resource_array = NULL;
 	} else {
+		*node_resource_array = xmalloc(sizeof(node_resource_t) * (*array_size));
 		for (i = 0; i < *array_size; i++) {
-			char *name;
 			size_t size;
 			int slot_num = 0;
 			avro_value_get_by_index(&node_resources_value, i, &NodeResource_value, NULL);
 			avro_value_get_by_name(&NodeResource_value, "host_name", &host_name_value, &index);
-			avro_value_get_string(&host_name_value, &name, &size);
+			avro_value_get_string(&host_name_value, &((*node_resource_array)[i].host_name), &size);
+
 			avro_value_get_by_name(&NodeResource_value, "slot", &slot_value, &index);
 			avro_value_get_int(&slot_value, &slot_num);
-			printf("host_name = %s, slot_num = %d\n", name, slot_num);
-			free(name);
+			(*node_resource_array)[i].slot_num = slot_num;
 		}
-
-//		for (i = 0; i < *array_size; i++) {
-//			char *name = NULL;
-//			avro_value_t field;
-//			avro_type_t  type;
-////			avro_value_get_by_index(&node_resources_value, i, &field, name);
-//
-////			printf("name  = %s\n", name);
-//			char *host_name;
-//			size_t host_name_size = 0;
-////			int slot_num = 0;
-////
-////
-////			printf("i = %d\n", i);
-//			avro_value_get_by_name(&field, "host_name", &host_name_value, &index);
-////			avro_value_get_by_name(&NodeResource_value, "slot", &slot_value, &index);
-//			avro_value_get_string(&host_name_value, host_name, &host_name_size);
-////			avro_value_get_int(&slot_value, &slot_num);
-//			printf("host_name = %s\n", host_name);
-////			printf("host_name = %s, slot_num = %d\n", host_name, slot_num);
-//		}
 	}
-
-//
-//	for (i = 0; i < array_size; i++) {
-//		avro_value_append(&node_resources_value, &NodeResource_value, &index);
-//		avro_value_get_by_name(&NodeResource_value, "host_name", &host_name_value, &index);
-//		avro_value_set_string(&host_name_value, node_resource_array[i].host_name);
-//		avro_value_get_by_name(&NodeResource_value, "slot", &slot_value, &index);
-//		avro_value_set_int(&slot_value, node_resource_array[i].slot_num);
-//	}
-
 
 	//avro_generic_value_free(&record);
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
+}
+
+
+extern void free_node_resource_array(node_resource_t *node_resource_array, int array_size)
+{
+	int i;
+	for (i = 0; i < array_size; i++) {
+		if (node_resource_array[i].host_name) {
+			free(node_resource_array[i].host_name);
+		}
+	}
+
+	if (node_resource_array) {
+		free(node_resource_array);
+	}
 }

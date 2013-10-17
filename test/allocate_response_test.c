@@ -50,7 +50,6 @@ static void build_allocate_response(node_resource_t *node_resource_array, int ar
 
 	avro_value_get_by_name(&record, "node_resources", &node_resources_value, &index);
 
-
 	for (i = 0; i < array_size; i++) {
 		avro_value_append(&node_resources_value, &NodeResource_value, &index);
 		avro_value_get_by_name(&NodeResource_value, "host_name", &host_name_value, &index);
@@ -58,17 +57,6 @@ static void build_allocate_response(node_resource_t *node_resource_array, int ar
 		avro_value_get_by_name(&NodeResource_value, "slot", &slot_value, &index);
 		avro_value_set_int(&slot_value, node_resource_array[i].slot_num);
 	}
-
-//	for (i = 0; i < array_size; i++) {
-//		avro_value_get_by_name(&node_resources_value, "NodeResource", &NodeResource_value, &index);
-//		printf("i = %d, index = %d\n", i, index);
-//		avro_value_get_by_name(&NodeResource_value, "host_name", &host_name_value, &index);
-//		avro_value_set_string(&host_name_value, node_resource_array[i].host_name);
-//		avro_value_get_by_name(&NodeResource_value, "slot", &slot_value, &index);
-//		avro_value_set_int(&slot_value, node_resource_array[i].slot_num);
-//		avro_value_append(&node_resources_value, &NodeResource_value, &index);
-//	}
-
 
 	/* create a writer with memory buffer */
 	writer = avro_writer_memory(buf, sizeof(buf));
@@ -92,7 +80,6 @@ static void build_allocate_response(node_resource_t *node_resource_array, int ar
 	memcpy((*slice)->buffer, buf, len);
 }
 
-//extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_resource_array, int *array_size)
 
 int main()
 {
@@ -104,7 +91,13 @@ int main()
 //============================
 	node_resource_t *node_resource_array_result;
 	int array_size_result = 0;
+	int i;
 	parse_allocate_response(slice, &node_resource_array_result, &array_size_result);
+	for (i = 0; i < array_size_result; i++) {
+		printf("host_name = %s, slot_num = %d ...\n", node_resource_array_result[i].host_name, node_resource_array_result[i].slot_num);
+	}
+
+	free_node_resource_array(node_resource_array_result, array_size_result);
 
 	free_slice(slice);
 	return 0;
