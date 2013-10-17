@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "register.h"
 
-extern void build_register_request(avro_slice_t *slice)
+extern void build_register_request(avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -34,9 +34,10 @@ extern void build_register_request(avro_slice_t *slice)
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	slice->buffer = malloc(len);
-	slice->len = len;
-	memcpy(slice->buffer, buf, len);
+	*slice = xmalloc(sizeof(avro_slice_t));
+	(*slice)->buffer = xmalloc(len);
+	(*slice)->len = len;
+	memcpy((*slice)->buffer, buf, len);
 }
 
 extern int get_register_response(avro_slice_t *slice)

@@ -4,20 +4,21 @@
 #include "common.h"
 #include <avro.h>
 
-static void read_file(char *filename, avro_slice_t* slice)
+extern void read_file_to_slice(char *filename, avro_slice_t **slice)
 {
 	FILE *fp;
 
 	if (NULL == (fp = fopen(filename, "r"))) {
-		fprintf(stderr, "%s :Open file failed.\n", filename);
+		fprintf(stderr, "%s : Open file failed.\n", filename);
 		exit(1);
 	}
 
 	fseek(fp, 0, SEEK_END);
-	slice->len = ftell(fp);
+	*slice = xmalloc(sizeof(avro_slice_t));
+	(*slice)->len = ftell(fp);
 	rewind(fp);
-	slice->buffer = malloc(slice->len);
-	fread(slice->buffer, 1, slice->len, fp);
+	(*slice)->buffer = xmalloc((*slice)->len);
+	fread((*slice)->buffer, 1, (*slice)->len, fp);
 	fclose(fp);
 }
 
@@ -27,15 +28,14 @@ static void read_file(char *filename, avro_slice_t* slice)
  */
 extern void init_schema(char *filename, avro_schema_t *schema)
 {
-	avro_slice_t schema_slice;
-	read_file(filename, &schema_slice);
-	if (avro_schema_from_json(schema_slice.buffer, 0, schema, NULL)) {
+	avro_slice_t *schema_slice;
+	read_file_to_slice(filename, &schema_slice);
+	if (avro_schema_from_json_length(schema_slice->buffer, schema_slice->len, schema)) {
 		fprintf(stderr, "Unable to parse schema. \n");
+		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}
-	if (schema_slice.buffer) {
-		free(schema_slice.buffer);
-	}
+	free_slice(schema_slice);
 }
 
 extern void write_slice_to_file(char *filename, avro_slice_t *slice)
@@ -50,4 +50,25 @@ extern void write_slice_to_file(char *filename, avro_slice_t *slice)
 
 	fwrite(slice->buffer, 1, slice->len, fp);
 	fclose(fp);
+}
+
+
+extern void free_slice(avro_slice_t *slice)
+{
+	if (slice->buffer) {
+		free(slice->buffer);
+	}
+	if (slice) {
+		free(slice);
+	}
+}
+
+extern void *xmalloc(size_t size)
+{
+	void *p = NULL;
+	if (!(p = malloc(size))) {
+		fprintf(stderr, "malloc failed.\n");
+		exit(1);
+	}
+	return p;
 }

@@ -11,9 +11,13 @@ typedef struct avro_slice {
 
 extern void init_schema(char *filename, avro_schema_t *schema);
 
+extern void read_file_to_slice(char *filename, avro_slice_t **slice);
 
 extern void write_slice_to_file(char *filename, avro_slice_t *slice);
 
+extern void free_slice(avro_slice_t *slice);
+
+extern void *xmalloc(size_t size);
 
 
 #endif /* COMMON_H_ */

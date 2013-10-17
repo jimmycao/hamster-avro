@@ -2,7 +2,7 @@
 #include "constants.h"
 
 
-extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_slice_t *wrapper_slice)
+extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_slice_t **wrapper_slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -41,8 +41,8 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	wrapper_slice->buffer = malloc(len);
-	wrapper_slice->len = len;
-	memcpy(wrapper_slice->buffer, buf, len);
+	*wrapper_slice = xmalloc(sizeof(avro_slice_t));
+	(*wrapper_slice)->buffer = xmalloc(len);
+	(*wrapper_slice)->len = len;
+	memcpy((*wrapper_slice)->buffer, buf, len);
 }
-

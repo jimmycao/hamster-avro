@@ -1,7 +1,7 @@
 #include "common.h"
 #include "constants.h"
 
-extern void build_person(char *name, long weight, long height, avro_slice_t *slice)
+extern void build_person(char *name, long weight, long height, avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -47,33 +47,14 @@ extern void build_person(char *name, long weight, long height, avro_slice_t *sli
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	slice->buffer = malloc(len);
-	slice->len = len;
-	memcpy(slice->buffer, buf, len);
+	*slice = xmalloc(sizeof(avro_slice_t));
+	(*slice)->buffer = xmalloc(len);
+	(*slice)->len = len;
+	memcpy((*slice)->buffer, buf, len);
 }
 
-/*
-int avro_value_get_by_name(const avro_value_t *record, const char *field_name,
-                           avro_value_t *element, size_t *index);
-#include <stdint.h>
-#include <stdlib.h>
-#include <avro.h>
 
-int avro_value_get_boolean(const avro_value_t *value, int *dest);
-int avro_value_get_bytes(const avro_value_t *value,
-                         const void **dest, size_t *size);
-int avro_value_get_double(const avro_value_t *value, double *dest);
-int avro_value_get_float(const avro_value_t *value, float *dest);
-int avro_value_get_int(const avro_value_t *value, int32_t *dest);
-int avro_value_get_long(const avro_value_t *value, int64_t *dest);
-int avro_value_get_null(const avro_value_t *value);
-int avro_value_get_string(const avro_value_t *value,
-                          const char **dest, size_t *size);
-int avro_value_get_enum(const avro_value_t *value, int *dest);
-int avro_value_get_fixed(const avro_value_t *value,
-                         const void **dest, size_t *size);
-*/
-extern void print_person(avro_slice_t *slice)
+extern void parse_person(avro_slice_t *slice)
 {
 	char filename[FILE_NAME_LEN];
 	avro_schema_t schema;
@@ -88,7 +69,6 @@ extern void print_person(avro_slice_t *slice)
 	size_t size = 0;
 	long weight;
 	long height;
-
 
 	sprintf(filename, "%s/%s", SCHEMA_PATH, "person.schema");
 	init_schema(filename, &schema);

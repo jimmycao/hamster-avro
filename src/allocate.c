@@ -3,7 +3,7 @@
 #include "allocate.h"
 
 
-extern void build_allocate_request(int resource_count, avro_slice_t *slice)
+extern void build_allocate_request(int resource_count, avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -24,7 +24,6 @@ extern void build_allocate_request(int resource_count, avro_slice_t *slice)
 	avro_value_get_by_name(&record, "resource_count", &resource_count_value, &index);
 	avro_value_set_int(&resource_count_value, resource_count);
 
-
 	/* create a writer with memory buffer */
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */
@@ -41,7 +40,13 @@ extern void build_allocate_request(int resource_count, avro_slice_t *slice)
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	slice->buffer = malloc(len);
-	slice->len = len;
-	memcpy(slice->buffer, buf, len);
+	*slice = xmalloc(sizeof(avro_slice_t));
+	(*slice)->buffer = xmalloc(len);
+	(*slice)->len = len;
+	memcpy((*slice)->buffer, buf, len);
+}
+
+extern void parse_allocate_response(avro_slice_t *slice, node_resource_t *node_resource_array, int array_size)
+{
+
 }
