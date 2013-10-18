@@ -57,8 +57,6 @@ extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_
 	avro_value_t node_resources_value, NodeResource_value, host_name_value, slot_value;
 	int i;
 
-
-
 	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
 

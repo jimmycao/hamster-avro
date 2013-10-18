@@ -23,5 +23,7 @@ typedef struct {
 
 extern void build_launch_request(launch_context_t *launch_context_array, int array_size, avro_slice_t **slice);
 
+extern void free_launch_context_array(launch_context_t *launch_context_array, int array_size);
+
 
 #endif /* LAUNCH_H_ */

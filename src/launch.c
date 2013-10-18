@@ -59,7 +59,7 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	avro_value_iface_t *iface;
 	avro_value_t record;
 	avro_value_t launchContexts_value, launchContext_value, en_vars_value, args_value, host_name_value;
-	avro_value_t name_value, ProcessName_value, jobid_value, vpid_value;
+	avro_value_t name_value, jobid_value, vpid_value;
 	size_t index;
 	avro_writer_t writer;
 	int i;
@@ -85,12 +85,11 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 		avro_value_set_string(&host_name_value, launch_context_array[i].host_name);
 
 		avro_value_get_by_name(&launchContext_value, "name", &name_value, &index);
-		avro_value_get_by_name(&name_value, "ProcessName", &ProcessName_value, &index);
 
-		avro_value_get_by_name(&ProcessName_value, "jobid", &jobid_value, &index);
+		avro_value_get_by_name(&name_value, "jobid", &jobid_value, &index);
 		avro_value_set_int(&jobid_value, launch_context_array[i].proc_name.jobid);
 
-		avro_value_get_by_name(&ProcessName_value, "vpid", &vpid_value, &index);
+		avro_value_get_by_name(&name_value, "vpid", &vpid_value, &index);
 		avro_value_set_int(&vpid_value, launch_context_array[i].proc_name.vpid);
 	}
 
@@ -114,4 +113,24 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	(*slice)->buffer = xmalloc(len);
 	(*slice)->len = len;
 	memcpy((*slice)->buffer, buf, len);
+}
+
+extern void free_launch_context_array(launch_context_t *launch_context_array, int array_size)
+{
+	int i;
+	for (i = 0; i < array_size; i++) {
+		if (launch_context_array[i].en_vars) {
+			free(launch_context_array[i].en_vars);
+		}
+		if (launch_context_array[i].args) {
+			free(launch_context_array[i].args);
+		}
+		if (launch_context_array[i].host_name) {
+			free(launch_context_array[i].host_name);
+		}
+	}
+
+	if (launch_context_array) {
+		free(launch_context_array);
+	}
 }
