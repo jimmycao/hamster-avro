@@ -1,6 +1,12 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
+#if HAVE_STDBOOL_H
+#  include <stdbool.h>
+#else
+typedef enum {false, true} bool;
+#endif /* !HAVE_STDBOOL_H */
+
 #define SCHEMA_PATH "/Users/caoj7/workspace/hamster-avro/schema"
 
 #define FILE_NAME_LEN 256
