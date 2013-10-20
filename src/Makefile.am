@@ -10,7 +10,9 @@ headers = \
 	hnp_request_wrapper.h \
 	allocate.h \
 	launch.h \
-	person.h
+	finish.h \
+	heartbeat.h \
+	person.h 
 	
 libhamster_avro_la_SOURCES = = \
 	$(headers) \
@@ -19,4 +21,6 @@ libhamster_avro_la_SOURCES = = \
 	register.c \
 	allocate.c \
 	launch.c \
+	finish.c \
+	heartbeat.c \
 	person.c 

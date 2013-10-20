@@ -9,11 +9,8 @@
 #define LAUNCH_H_
 
 #include "constants.h"
+#include "common.h"
 
-typedef struct {
-	int jobid;
-	int vpid;
-} process_name_t;
 
 typedef struct {
 	char *en_vars;

@@ -41,3 +41,8 @@ test/allocate_response_test
 test/allocate_request_test
 test/launch_request_test
 test/launch_response_test
+test/finish_request_test
+test/finish_response_test
+test/heartbeat_request_test
+test/heartbeat_response_test
+test/register_request_test

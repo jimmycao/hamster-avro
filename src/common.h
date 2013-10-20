@@ -8,8 +8,14 @@ typedef struct avro_slice {
 	int len;
 } avro_slice_t;
 
+typedef struct {
+	int jobid;
+	int vpid;
+} process_name_t;
 
 extern void init_schema(char *filename, avro_schema_t *schema);
+
+extern void init_schema_from_json(char *filename, avro_schema_t *schema);
 
 extern void read_file_to_slice(char *filename, avro_slice_t **slice);
 
