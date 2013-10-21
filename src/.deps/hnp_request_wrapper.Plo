@@ -20,7 +20,8 @@ hnp_request_wrapper.lo hnp_request_wrapper.o: hnp_request_wrapper.c \
   /usr/include/secure/_common.h ../avro/legacy.h ../avro/data.h \
   /usr/include/string.h /usr/include/secure/_string.h ../avro/schema.h \
   ../avro/value.h /usr/include/errno.h /usr/include/sys/errno.h \
-  ../avro/errors.h ../avro/generic.h ../avro/resolver.h constants.h
+  ../avro/errors.h ../avro/generic.h ../avro/resolver.h constants.h \
+  hnp_request_wrapper.h
 
 common.h:
 
@@ -123,3 +124,5 @@ common.h:
 ../avro/resolver.h:
 
 constants.h:
+
+hnp_request_wrapper.h:

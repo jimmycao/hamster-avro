@@ -1,5 +1,4 @@
 {
-	"type": "record",
-	"name": "RegisterRequest",
-	"fields": []
+	"type": "null",
+	"name": "RegisterRequest"
 }

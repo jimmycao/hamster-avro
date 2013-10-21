@@ -4,9 +4,9 @@
 #include <avro.h>
 #include "src/common.h"
 #include "src/constants.h"
-#include "src/finish.h"
+#include "src/register.h"
 
-static void build_finish_response(avro_slice_t **slice)
+extern void build_register_response(avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -15,11 +15,9 @@ static void build_finish_response(avro_slice_t **slice)
 	avro_value_iface_t *iface;
 	avro_value_t record;
 	size_t index;
-	int i;
-
 	avro_writer_t writer;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "FinishResponseRecordAvro.avsc");
+	sprintf(filename, "%s/%s", SCHEMA_PATH, "RegisterResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
@@ -51,13 +49,15 @@ int main()
 {
 	avro_slice_t *slice;
 
-	build_finish_response(&slice);
+	build_register_response(&slice);
 	printf("slice->len = %d\n", slice->len);
-//============================
-	int rt = 9999;
-	rt = parse_finish_response(slice);
-	printf("rt = %d\n", rt);
-//===========================
+	//==============================
+	int result = 999;
+	result = parse_register_response(slice);
+	printf("result = %d\n", result);
+	//==============================
+
 	free_slice(slice);
 	return 0;
 }
+

@@ -37,24 +37,24 @@ extern void init_schema(char *filename, avro_schema_t *schema)
 	}
 	free_slice(schema_slice);
 }
-/*
-{
-	"type": "record",
-	"name": "RegisterRequest",
-	"fields": []
-}
- */
-extern void init_schema_from_json(char *filename, avro_schema_t *schema)
-{
-	avro_slice_t *slice;
-	read_file_to_slice(filename, &slice);
-	if (avro_schema_from_json(slice->buffer, 0, schema, NULL)) {
-		fprintf(stderr, "Unable to parse schema. \n");
-		fprintf(stderr, "Error : %s\n", avro_strerror());
-		exit(1);
-	}
-	free_slice(slice);
-}
+///*
+//{
+//	"type": "record",
+//	"name": "RegisterRequest",
+//	"fields": []
+//}
+// */
+//extern void init_schema_from_json(char *filename, avro_schema_t *schema)
+//{
+//	avro_slice_t *slice;
+//	read_file_to_slice(filename, &slice);
+//	if (avro_schema_from_json(slice->buffer, 0, schema, NULL)) {
+//		fprintf(stderr, "Unable to parse schema. \n");
+//		fprintf(stderr, "Error : %s\n", avro_strerror());
+//		exit(1);
+//	}
+//	free_slice(slice);
+//}
 
 extern void write_slice_to_file(char *filename, avro_slice_t *slice)
 {

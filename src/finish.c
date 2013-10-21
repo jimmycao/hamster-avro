@@ -58,13 +58,7 @@ extern void build_finish_request(bool succeed, char *diagnostics, avro_slice_t *
 	memcpy((*slice)->buffer, buf, len);
 }
 
-/*
-{
-	"type": "record",
-	"name": "FinishResponse",
-	"fields": []
-}
-*/
+
 extern int parse_finish_response(avro_slice_t *slice)
 {
 	char filename[FILE_NAME_LEN];
@@ -74,7 +68,6 @@ extern int parse_finish_response(avro_slice_t *slice)
 	size_t index;
 	avro_reader_t reader;
 	size_t size = 0;
-
 
 	sprintf(filename, "%s/%s", SCHEMA_PATH, "FinishResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
@@ -94,7 +87,15 @@ extern int parse_finish_response(avro_slice_t *slice)
 	avro_value_iface_decref(iface);
 	avro_schema_decref(schema);
 
-	if (size > 0) {
+//	printf("slice->len = %d\n", slice->len);
+//	printf("size = %ld\n", size);
+//
+//	if (size > 0) {
+//		return 0;
+//	} else {
+//		return -1;
+//	}
+	if (size == 0) {
 		return 0;
 	} else {
 		return -1;

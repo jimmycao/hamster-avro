@@ -1,8 +1,22 @@
 #include "common.h"
 #include "constants.h"
+#include "hnp_request_wrapper.h"
+/*
+{
+	"type": "record",
+	"name": "HamsterHnpRequest",
+	"fields": [
+		{"name": "request",  "type": "bytes"},
+		{"name": "msg_type", "type": {"type": "enum",
+  									  "name": "MsgType",
+  									  "symbols" : ["ALLOCATE", "LAUNCH", "REGISTER", "FINISH", "HEARTBEAT"]
+								      }
+		}
+	]
+}
+ */
 
-
-extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_slice_t **wrapper_slice)
+extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, msg_type_enum_t msg_type, avro_slice_t **wrapper_slice)
 {
 	char filename[FILE_NAME_LEN];
 	char buf[BUFFER_SIZE];
@@ -23,8 +37,9 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, int type, avro_
 
 	avro_value_get_by_name(&record, "request", &request_value, &index);
 	avro_value_set_bytes(&request_value, inner_slice->buffer, inner_slice->len);
-	avro_value_get_by_name(&record, "msg_type_value", &msg_type_value, &index);
-	avro_value_set_enum(&msg_type_value, type);
+
+	avro_value_get_by_name(&record, "msg_type", &msg_type_value, &index);
+	avro_value_set_enum(&msg_type_value, msg_type);
 
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */

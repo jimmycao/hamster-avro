@@ -1,6 +1,8 @@
 #ifndef HEARTBEAT_H_
 #define HEARTBEAT_H_
 
+#include "common.h"
+
 typedef enum {
 	RUNNING,
 	COMPLETED

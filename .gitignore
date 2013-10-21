@@ -46,3 +46,5 @@ test/finish_response_test
 test/heartbeat_request_test
 test/heartbeat_response_test
 test/register_request_test
+test/hnp_request_wrapper_test
+test/register_response_test

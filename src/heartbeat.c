@@ -15,7 +15,6 @@ extern void build_heartbeat_request(avro_slice_t **slice)
 
 	sprintf(filename, "%s/%s", SCHEMA_PATH, "HeartBeatRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
-	init_schema_from_json(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
 	avro_generic_value_new(iface, &record);

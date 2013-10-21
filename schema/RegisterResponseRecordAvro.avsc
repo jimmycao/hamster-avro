@@ -1,5 +1,4 @@
 {
-	"type": "record",
-	"name": "RegisterResponse",
-	"fields": []
+	"type": "null",
+	"name": "RegisterResponse"
 }
