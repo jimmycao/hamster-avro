@@ -2,6 +2,47 @@
 #include "constants.h"
 #include "launch.h"
 
+/*
+//typedef struct {
+//	char **en_vars_array;  /* ended with NULL */
+//	char *args;
+//	char *host_name;
+//	process_name_t proc_name;
+//} launch_context_t;
+/*
+{
+	"type": "record",
+	"name": "LaunchRequest",
+	"fields": [
+		{
+		 	"name": "launchContexts",
+		 	"type": {
+		          		"type": "array",
+		 		  		"items": {
+		 		  				"type": "record",
+		 		  				"name": "LaunchContext",
+		 		  				"fields": [
+		 		  					{"name": "en_vars", "type": {
+		 		  						"type": "array", "items": "string"}
+		 		  					},
+		 		  					{"name": "args", "type": "string"},
+		 		  					{"name": "host_name", "type": "string"},
+		 		  					{"name": "name", "type": {
+		 		  										"type": "record",
+		 		  										"name": "ProcessName",
+		 		  										"fields": [
+		 		  											{"name": "jobid", "type": "int"},
+															{"name": "vpid", "type": "int"}
+		 		  										]
+		 		  									   }
+		 		  				    }
+		 		  				 ]
+		 		  			}
+		 	        }
+		}
+	]
+}
+*/
 extern void build_launch_request(launch_context_t *launch_context_array, int array_size, avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];
@@ -10,7 +51,7 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	avro_schema_t schema;
 	avro_value_iface_t *iface;
 	avro_value_t record;
-	avro_value_t launchContexts_value, launchContext_value, en_vars_value, args_value, host_name_value;
+	avro_value_t launchContexts_value, launchContext_value, en_vars_array_value, en_var_item_value, args_value, host_name_value;
 	avro_value_t name_value, jobid_value, vpid_value;
 	size_t index;
 	avro_writer_t writer;
@@ -27,8 +68,12 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	for (i = 0; i < array_size; i++) {
 		avro_value_append(&launchContexts_value, &launchContext_value, &index);
 
-		avro_value_get_by_name(&launchContext_value, "en_vars", &en_vars_value, &index);
-		avro_value_set_string(&en_vars_value, launch_context_array[i].en_vars);
+		avro_value_get_by_name(&launchContext_value, "en_vars", &en_vars_array_value, &index);
+		while (*(launch_context_array[i].en_vars_array)) {
+			avro_value_append(&en_vars_array_value, &en_var_item_value, &index);
+			avro_value_set_string(&en_var_item_value, *(launch_context_array[i].en_vars_array));
+			launch_context_array[i].en_vars_array++;
+		}
 
 		avro_value_get_by_name(&launchContext_value, "args", &args_value, &index);
 		avro_value_set_string(&args_value, launch_context_array[i].args);
@@ -67,13 +112,17 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	memcpy((*slice)->buffer, buf, len);
 }
 
+
+
 extern void free_launch_context_array(launch_context_t *launch_context_array, int array_size)
 {
 	int i;
 	for (i = 0; i < array_size; i++) {
-		if (launch_context_array[i].en_vars) {
-			free(launch_context_array[i].en_vars);
+		while (*(launch_context_array[i].en_vars_array)) {
+			free(*(launch_context_array[i].en_vars_array));
+			launch_context_array[i].en_vars_array++;
 		}
+
 		if (launch_context_array[i].args) {
 			free(launch_context_array[i].args);
 		}

@@ -10,9 +10,7 @@
 		 		  				"type": "record",
 		 		  				"name": "LaunchContext",
 		 		  				"fields": [
-		 		  					{"name": "en_vars", "type": {
-		 		  						"type": "array", "items": "string"}
-		 		  					},
+		 		  					{"name": "en_vars", "type" : "string"},
 		 		  					{"name": "args", "type": "string"},
 		 		  					{"name": "host_name", "type": "string"},
 		 		  					{"name": "name", "type": {

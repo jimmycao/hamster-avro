@@ -9,12 +9,11 @@ headers = \
 	constants.h \
 	finish.h \
 	heartbeat.h \
-	register.h \
 	hnp_request_wrapper.h \
 	launch.h \
 	register.h 
 	
-libhamster_avro_la_SOURCES = = \
+libhamster_avro_la_SOURCES = \
 	$(headers) \
 	allocate.c \
 	common.c \

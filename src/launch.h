@@ -13,7 +13,7 @@
 
 
 typedef struct {
-	char *en_vars;
+	char **en_vars_array;  /* ended with NULL */
 	char *args;
 	char *host_name;
 	process_name_t proc_name;
