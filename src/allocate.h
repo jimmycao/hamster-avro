@@ -1,6 +1,8 @@
 #ifndef ALLOCATE_H_
 #define ALLOCATE_H_
 
+#include "common.h"
+
 typedef struct {
 	char *host_name;
 	int slot_num;

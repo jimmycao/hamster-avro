@@ -1,4 +1,7 @@
 {
-	"type": "null",
-	"name": "HeartBeatRequest"
+	"type": "record",
+	"name": "HeartBeatRequest",
+	"fields": [
+		{"name": "heartbeat_request", "type": "null"}
+	]
 }

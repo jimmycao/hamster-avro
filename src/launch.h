@@ -1,10 +1,3 @@
-/*
- * launch.h
- *
- *  Created on: Oct 17, 2013
- *      Author: caoj7
- */
-
 #ifndef LAUNCH_H_
 #define LAUNCH_H_
 

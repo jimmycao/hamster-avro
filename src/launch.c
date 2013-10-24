@@ -2,47 +2,6 @@
 #include "constants.h"
 #include "launch.h"
 
-/*
-//typedef struct {
-//	char **en_vars_array;  /* ended with NULL */
-//	char *args;
-//	char *host_name;
-//	process_name_t proc_name;
-//} launch_context_t;
-/*
-{
-	"type": "record",
-	"name": "LaunchRequest",
-	"fields": [
-		{
-		 	"name": "launchContexts",
-		 	"type": {
-		          		"type": "array",
-		 		  		"items": {
-		 		  				"type": "record",
-		 		  				"name": "LaunchContext",
-		 		  				"fields": [
-		 		  					{"name": "en_vars", "type": {
-		 		  						"type": "array", "items": "string"}
-		 		  					},
-		 		  					{"name": "args", "type": "string"},
-		 		  					{"name": "host_name", "type": "string"},
-		 		  					{"name": "name", "type": {
-		 		  										"type": "record",
-		 		  										"name": "ProcessName",
-		 		  										"fields": [
-		 		  											{"name": "jobid", "type": "int"},
-															{"name": "vpid", "type": "int"}
-		 		  										]
-		 		  									   }
-		 		  				    }
-		 		  				 ]
-		 		  			}
-		 	        }
-		}
-	]
-}
-*/
 extern void build_launch_request(launch_context_t *launch_context_array, int array_size, avro_slice_t **slice)
 {
 	char filename[FILE_NAME_LEN];

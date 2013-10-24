@@ -1,4 +1,7 @@
 {
-	"type": "null",
-	"name": "RegisterResponse"
+	"type": "record",
+	"name": "RegisterResponse",
+	"fields": [
+		{"name": "register_response", "type": "null"}
+	]
 }
