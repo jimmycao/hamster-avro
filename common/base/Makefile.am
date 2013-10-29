@@ -1,9 +1,4 @@
-#AM_CPPFLAGS = -I/Users/caoj7/program/common-c/include
-#LDADD = -L/Users/caoj7/program/common-c/lib -lavro
-
-lib_LTLIBRARIES = libhamster_common.la
-
-headers = hdclient.h \
+headers += \
 	base/allocate.h \
 	base/common.h \
 	base/constants.h \
@@ -14,8 +9,8 @@ headers = hdclient.h \
 	base/register.h \
 	base/net_utils.h \
 	base/str_utils.h
-
-libhamster_common_la_SOURCES = \
+	
+libhamster_common_la_SOURCES += \
 	$(headers) \
 	base/allocate.c \
 	base/common.c \

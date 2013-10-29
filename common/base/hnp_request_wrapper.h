@@ -1,6 +1,9 @@
 #ifndef HNP_REQUEST_WRAPPER_H_
 #define HNP_REQUEST_WRAPPER_H_
 
+#include "common.h"
+#include "constants.h"
+
 typedef enum {
 	ALLOCATE,
 	LAUNCH,

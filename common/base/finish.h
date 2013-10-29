@@ -1,6 +1,7 @@
 #ifndef FINISH_H_
 #define FINISH_H_
 
+#include "common.h"
 #include "constants.h"
 
 

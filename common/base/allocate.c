@@ -1,7 +1,4 @@
-#include "common.h"
-#include "constants.h"
 #include "allocate.h"
-
 
 extern void build_allocate_request(int resource_count, avro_slice_t **slice)
 {
@@ -15,7 +12,7 @@ extern void build_allocate_request(int resource_count, avro_slice_t **slice)
 	size_t index;
 	avro_writer_t writer;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateRequestRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "AllocateRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
@@ -57,7 +54,7 @@ extern void parse_allocate_response(avro_slice_t *slice, node_resource_t **node_
 	avro_value_t node_resources_value, NodeResource_value, host_name_value, slot_value;
 	int i;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateResponseRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "AllocateResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);

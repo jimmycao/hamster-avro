@@ -2,6 +2,7 @@
 #define ALLOCATE_H_
 
 #include "common.h"
+#include "constants.h"
 
 typedef struct {
 	char *host_name;

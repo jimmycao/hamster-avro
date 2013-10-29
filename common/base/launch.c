@@ -1,5 +1,3 @@
-#include "common.h"
-#include "constants.h"
 #include "launch.h"
 
 extern void build_launch_request(launch_context_t *launch_context_array, int array_size, avro_slice_t **slice)
@@ -16,7 +14,7 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 	avro_writer_t writer;
 	int i;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "LaunchRequestRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "LaunchRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
@@ -106,7 +104,7 @@ extern void parse_launch_response(avro_slice_t *slice, launch_response_t **launc
 	avro_value_t results_value, LaunchResult_value, is_successful_value, name_value, jobid_value, vpid_value;
 	int i;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "LaunchResponseRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "LaunchResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);

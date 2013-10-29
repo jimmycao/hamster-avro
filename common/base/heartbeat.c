@@ -1,7 +1,4 @@
-#include "common.h"
-#include "constants.h"
 #include "heartbeat.h"
-
 
 extern void build_heartbeat_request(avro_slice_t **slice)
 {
@@ -10,14 +7,19 @@ extern void build_heartbeat_request(avro_slice_t **slice)
 	long len = 0;
 	avro_schema_t schema;
 	avro_value_iface_t *iface;
-	avro_value_t record;
+	avro_value_t record, heartbeat_request_value;
 	avro_writer_t writer;
+	size_t index;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "HeartBeatRequestRecordAvro.avsc");
+
+	sprintf(filename, "%s/%s", avro_schema_path, "HeartBeatRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
 	avro_generic_value_new(iface, &record);
+
+	avro_value_get_by_name(&record, "heartbeat_request", &heartbeat_request_value, &index);
+	avro_value_set_null(&heartbeat_request_value);
 
 	/* create a writer with memory buffer */
 	writer = avro_writer_memory(buf, sizeof(buf));
@@ -55,7 +57,7 @@ extern void parse_heartbeat_response(avro_slice_t *slice, completed_proc_t **com
 	avro_value_t exit_value_value;
 	int i;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "HeartBeatResponseRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "HeartBeatResponseRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);

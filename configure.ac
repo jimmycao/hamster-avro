@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([hamster-avro], [0.1], [jcao@gopivotal.com])
-AC_CONFIG_SRCDIR([common/common.c])
+AC_CONFIG_SRCDIR([test/allocate_request_test.c])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE(1.8 foreign -Wall -Werror)

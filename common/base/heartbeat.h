@@ -2,6 +2,7 @@
 #define HEARTBEAT_H_
 
 #include "common.h"
+#include "constants.h"
 
 typedef enum {
 	RUNNING,

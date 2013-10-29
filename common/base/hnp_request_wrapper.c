@@ -1,5 +1,3 @@
-#include "common.h"
-#include "constants.h"
 #include "hnp_request_wrapper.h"
 /*
 {
@@ -29,7 +27,7 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, msg_type_enum_t
 	size_t index;
 	avro_writer_t writer;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "HamsterHnpRequestRecordAvro.avsc");
+	sprintf(filename, "%s/%s", avro_schema_path, "HamsterHnpRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
