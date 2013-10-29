@@ -33,7 +33,7 @@ test/Makefile.in
 *.a
 *.dylib
 *.Plo
-src/.deps/
+common/.deps/
 test/.deps/
 test/.libs/
 test/person_test

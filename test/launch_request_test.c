@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "src/common.h"
-#include "src/constants.h"
-#include "src/launch.h"
+#include "common/common.h"
+#include "common/constants.h"
+#include "common/launch.h"
 
 //typedef struct {
 //	char **en_vars_array;  /* ended with NULL */

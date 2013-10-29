@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "src/common.h"
-#include "src/constants.h"
-#include "src/heartbeat.h"
+#include "common/common.h"
+#include "common/constants.h"
+#include "common/heartbeat.h"
 
 extern int parse_heartbeat_request(avro_slice_t *slice)
 {

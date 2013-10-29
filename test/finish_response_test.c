@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "src/common.h"
-#include "src/constants.h"
-#include "src/finish.h"
+#include "common/common.h"
+#include "common/constants.h"
+#include "common/finish.h"
 
 static void build_finish_response(avro_slice_t **slice)
 {

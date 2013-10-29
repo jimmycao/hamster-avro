@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "src/common.h"
-#include "src/constants.h"
-#include "src/register.h"
+#include "common/common.h"
+#include "common/constants.h"
+#include "common/register.h"
 
 extern void build_register_response(avro_slice_t **slice)
 {

@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([hamster-avro], [0.1], [jcao@gopivotal.com])
-AC_CONFIG_SRCDIR([src/common.c])
+AC_CONFIG_SRCDIR([common/common.c])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE(1.8 foreign -Wall -Werror)
@@ -31,7 +31,7 @@ AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile
+                 common/Makefile
                  test/Makefile
                  ])
 AC_OUTPUT

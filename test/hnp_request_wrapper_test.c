@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "src/common.h"
-#include "src/constants.h"
-#include "src/hnp_request_wrapper.h"
+#include "common/common.h"
+#include "common/constants.h"
+#include "common/hnp_request_wrapper.h"
 
 /*
 {
