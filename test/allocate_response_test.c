@@ -42,7 +42,12 @@ static void build_allocate_response(node_resource_t *node_resource_array, int ar
 
 	avro_writer_t writer;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateResponseRecordAvro.avsc");
+	char* avro_schema_path = getenv("AVRO_SCHEMA_PATH");
+	if (!avro_schema_path) {
+		fprintf(stderr, "Can not get AVRO_SCHEMA_PATH from env");
+		exit(1);
+	}
+	sprintf(filename, "%s/%s", avro_schema_path, "RegisterRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);

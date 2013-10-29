@@ -57,7 +57,12 @@ extern void parse_launch_request(avro_slice_t *slice, launch_context_t **launch_
 	avro_value_t name_value, jobid_value, vpid_value;
 	int i, j;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "LaunchRequestRecordAvro.avsc");
+	char* avro_schema_path = getenv("AVRO_SCHEMA_PATH");
+	if (!avro_schema_path) {
+		fprintf(stderr, "Can not get AVRO_SCHEMA_PATH from env");
+		exit(1);
+	}
+	sprintf(filename, "%s/%s", avro_schema_path, "RegisterRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);

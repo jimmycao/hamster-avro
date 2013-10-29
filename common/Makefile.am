@@ -1,6 +1,3 @@
-#AM_CPPFLAGS = -I/Users/caoj7/program/common-c/include
-#LDADD = -L/Users/caoj7/program/common-c/lib -lavro
-
 lib_LTLIBRARIES = libhamster_common.la
 
 headers = hdclient.h \
@@ -27,3 +24,20 @@ libhamster_common_la_SOURCES = \
 	base/net_utils.c \
 	base/str_utils.c \
 	base/hdclient.c
+	
+install-data-local:
+	$(MKDIR_P) $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/AllocateRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/AllocateResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/FinishRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/FinishResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/HamsterHnpRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/HeartBeatRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/HeartBeatResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/LaunchRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/LaunchRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/RegisterRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/RegisterResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+
+uninstall-local:
+	rm -rf $(DESTDIR)$(sysconfdir)/schema

@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include <avro.h>
-#include "common/common.h"
-#include "common/constants.h"
-#include "common/allocate.h"
+#include "common/base/common.h"
+#include "common/base/constants.h"
+#include "common/base/allocate.h"
 
 
 
@@ -17,8 +17,14 @@ static void parse_allocate_request(avro_slice_t *slice, int *resource_request_co
 	size_t index;
 	avro_reader_t reader;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "AllocateRequestRecordAvro.avsc");
+	char* avro_schema_path = getenv("AVRO_SCHEMA_PATH");
+	if (!avro_schema_path) {
+		fprintf(stderr, "Can not get AVRO_SCHEMA_PATH from env");
+		exit(1);
+	}
+	sprintf(filename, "%s/%s", avro_schema_path, "RegisterRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
+
 
 	iface = avro_generic_class_from_schema(schema);
 	avro_generic_value_new(iface, &record);

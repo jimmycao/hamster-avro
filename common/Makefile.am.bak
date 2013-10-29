@@ -1,0 +1,10 @@
+#AM_CPPFLAGS = -I/Users/caoj7/program/common-c/include
+#LDADD = -L/Users/caoj7/program/common-c/lib -lavro
+
+lib_LTLIBRARIES = libhamster_common.la
+
+headers = hdclient.h
+
+libhamster_common_la_SOURCES = 
+
+include base/Makefile.am

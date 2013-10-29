@@ -1,6 +1,8 @@
-AM_CPPFLAGS = -g -I$(top_srcdir)/common/ -I/Users/caoj7/program/common-c/include
+AM_CPPFLAGS = -g -I$(top_srcdir)/common/ 
+#-I/Users/caoj7/program/common-c/include
 
-LDADD = -L$(top_builddir)/common -lhamster_avro -L/Users/caoj7/program/common-c/lib -lavro
+LDADD = -L$(top_builddir)/common -lhamster_common 
+#-L/Users/caoj7/program/common-c/lib -lavro
 
 bin_PROGRAMS = \
 	allocate_request_test \

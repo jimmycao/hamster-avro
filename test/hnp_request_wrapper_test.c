@@ -32,7 +32,12 @@ extern void parse_hnp_request_wrapper(avro_slice_t *wrapper_slice, avro_slice_t 
 	avro_value_t request_value, msg_type_value;
 	size_t size;
 
-	sprintf(filename, "%s/%s", SCHEMA_PATH, "HamsterHnpRequestRecordAvro.avsc");
+	char* avro_schema_path = getenv("AVRO_SCHEMA_PATH");
+	if (!avro_schema_path) {
+		fprintf(stderr, "Can not get AVRO_SCHEMA_PATH from env");
+		exit(1);
+	}
+	sprintf(filename, "%s/%s", avro_schema_path, "RegisterRequestRecordAvro.avsc");
 	init_schema(filename, &schema);
 
 	iface = avro_generic_class_from_schema(schema);
