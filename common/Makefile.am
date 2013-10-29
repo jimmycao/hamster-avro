@@ -35,7 +35,7 @@ install-data-local:
 	$(INSTALL_DATA) schema/HeartBeatRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
 	$(INSTALL_DATA) schema/HeartBeatResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
 	$(INSTALL_DATA) schema/LaunchRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
-	$(INSTALL_DATA) schema/LaunchRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
+	$(INSTALL_DATA) schema/LaunchResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
 	$(INSTALL_DATA) schema/RegisterRequestRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
 	$(INSTALL_DATA) schema/RegisterResponseRecordAvro.avsc $(DESTDIR)$(sysconfdir)/schema/
 
