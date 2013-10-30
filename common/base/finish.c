@@ -28,7 +28,7 @@ extern void build_finish_request(bool succeed, char *diagnostics, avro_slice_t *
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */
 	if (avro_value_write(writer, &record)) {
-		fprintf(stderr, "Unable to write record to memory buffer\n");
+		fprintf(stderr, "build_finish_request: Unable to write record to memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}
@@ -65,7 +65,7 @@ extern int parse_finish_response(avro_slice_t *slice)
 
 	reader = avro_reader_memory(slice->buffer, slice->len);
 	if (avro_value_read(reader, &record)) {
-		fprintf(stderr, "Unable to read record from memory buffer\n");
+		fprintf(stderr, "parse_finish_response: Unable to read record from memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}

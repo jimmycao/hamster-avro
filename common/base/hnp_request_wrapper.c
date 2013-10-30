@@ -42,7 +42,7 @@ extern void build_hnp_request_wrapper(avro_slice_t *inner_slice, msg_type_enum_t
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */
 	if (avro_value_write(writer, &record)) {
-		fprintf(stderr, "Unable to write record to memory buffer\n");
+		fprintf(stderr, "build_hnp_request_wrapper: Unable to write record to memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}

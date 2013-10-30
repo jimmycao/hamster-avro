@@ -25,7 +25,7 @@ extern void build_heartbeat_request(avro_slice_t **slice)
 	writer = avro_writer_memory(buf, sizeof(buf));
 	/* write record to writer (buffer) */
 	if (avro_value_write(writer, &record)) {
-		fprintf(stderr, "Unable to write person record to memory buffer\n");
+		fprintf(stderr, "build_heartbeat_request: Unable to write person record to memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}
@@ -65,7 +65,7 @@ extern void parse_heartbeat_response(avro_slice_t *slice, completed_proc_t **com
 
 	reader = avro_reader_memory(slice->buffer, slice->len);
 	if (avro_value_read(reader, &record)) {
-		fprintf(stderr, "Unable to read record from memory buffer\n");
+		fprintf(stderr, "build_heartbeat_request: Unable to read record from memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}

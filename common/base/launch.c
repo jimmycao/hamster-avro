@@ -47,26 +47,54 @@ extern void build_launch_request(launch_context_t *launch_context_array, int arr
 		avro_value_set_int(&vpid_value, launch_context_array[i].proc_name.vpid);
 	}
 
+//	/* create a writer with memory buffer */
+//	writer = avro_writer_memory(buf, sizeof(buf));
+//	fprintf(stderr, "sizeof(buf) = %d\n", sizeof(buf));
+//	if (!writer) {
+//		fprintf(stderr, "avro_writer_memory  failed....\n");
+//	}
+//	if (!record) {
+//
+//	}
+//	/* write record to writer (buffer) */
+//	if (avro_value_write(writer, &record)) {
+//		fprintf(stderr, "build_launch_request: Unable to write record to memory buffer\n");
+//		fprintf(stderr, "Error: %s\n", avro_strerror());
+//		exit(1);
+//	}
+//
+//	avro_writer_flush(writer);
+//	len = avro_writer_tell(writer);
+//
+//	//avro_generic_value_free(&record);
+//	avro_value_iface_decref(iface);
+//	avro_schema_decref(schema);
+//
+//	*slice = xmalloc(sizeof(avro_slice_t));
+//	(*slice)->buffer = xmalloc(len);
+//	(*slice)->len = len;
+//	memcpy((*slice)->buffer, buf, len);
+
 	/* create a writer with memory buffer */
-	writer = avro_writer_memory(buf, sizeof(buf));
-	/* write record to writer (buffer) */
-	if (avro_value_write(writer, &record)) {
-		fprintf(stderr, "Unable to write record to memory buffer\n");
-		fprintf(stderr, "Error: %s\n", avro_strerror());
-		exit(1);
-	}
+		writer = avro_writer_memory(buf, sizeof(buf));
+		/* write record to writer (buffer) */
+		if (avro_value_write(writer, &record)) {
+			fprintf(stderr, "build_launch_request: Unable to write record to memory buffer\n");
+			fprintf(stderr, "Error: %s\n", avro_strerror());
+			exit(1);
+		}
 
-	avro_writer_flush(writer);
-	len = avro_writer_tell(writer);
+		avro_writer_flush(writer);
+		len = avro_writer_tell(writer);
 
-	//avro_generic_value_free(&record);
-	avro_value_iface_decref(iface);
-	avro_schema_decref(schema);
+		//avro_generic_value_free(&record);
+		avro_value_iface_decref(iface);
+		avro_schema_decref(schema);
 
-	*slice = xmalloc(sizeof(avro_slice_t));
-	(*slice)->buffer = xmalloc(len);
-	(*slice)->len = len;
-	memcpy((*slice)->buffer, buf, len);
+		*slice = xmalloc(sizeof(avro_slice_t));
+		(*slice)->buffer = xmalloc(len);
+		(*slice)->len = len;
+		memcpy((*slice)->buffer, buf, len);
 }
 
 
@@ -112,7 +140,7 @@ extern void parse_launch_response(avro_slice_t *slice, launch_response_t **launc
 
 	reader = avro_reader_memory(slice->buffer, slice->len);
 	if (avro_value_read(reader, &record)) {
-		fprintf(stderr, "Unable to read record from memory buffer\n");
+		fprintf(stderr, "build_launch_request: Unable to read record from memory buffer\n");
 		fprintf(stderr, "Error: %s\n", avro_strerror());
 		exit(1);
 	}
