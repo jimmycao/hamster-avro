@@ -13,10 +13,9 @@ common.lo common.o: common.c /usr/include/stdio.h /usr/include/_types.h \
   /usr/include/libkern/_OSByteOrder.h \
   /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
-  /usr/include/i386/_types.h common.h \
-  /Users/caoj7/program/common-c/include/avro.h ../avro/allocation.h \
-  ../avro/basics.h ../avro/consumer.h ../avro/platform.h \
-  /usr/include/inttypes.h \
+  /usr/include/i386/_types.h common.h /usr/include/avro.h \
+  ../avro/allocation.h ../avro/basics.h ../avro/consumer.h \
+  ../avro/platform.h /usr/include/inttypes.h \
   /usr/lib/gcc/i686-apple-darwin10/4.2.1/include/stdint.h ../avro/io.h \
   ../avro/legacy.h ../avro/data.h /usr/include/string.h \
   /usr/include/secure/_string.h ../avro/schema.h ../avro/value.h \
@@ -85,7 +84,7 @@ common.lo common.o: common.c /usr/include/stdio.h /usr/include/_types.h \
 
 common.h:
 
-/Users/caoj7/program/common-c/include/avro.h:
+/usr/include/avro.h:
 
 ../avro/allocation.h:
 
