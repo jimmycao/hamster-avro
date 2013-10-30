@@ -16,7 +16,7 @@ typedef enum {false, true} bool;
 extern char *avro_schema_path;
 
 #define FILE_NAME_LEN 256
-#define BUFFER_SIZE   8192
+#define BUFFER_SIZE   65536
 
 
 #endif /* CONSTANTS_H_ */
